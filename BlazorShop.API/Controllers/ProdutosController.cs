@@ -66,7 +66,7 @@ namespace BlazorShop.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetItensPorCategoria/{categoriaId}")]
+        [Route("{categoriaId}/GetItensPorCategoria")]
         public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetItensPorCategoria(int categoriaId)
         {
             try
@@ -79,6 +79,23 @@ namespace BlazorShop.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                                  "Erro ao acessar a base de dados");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetCategorias")]
+        public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategorias()
+        {
+            try
+            {
+                var categorias = await _produtoRepository.GetCategorias();
+                var categoriasDto = categorias.ConverterCategoriasParaDto();
+                return Ok(categoriasDto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                                           "Erro ao acessar o banco de dados");
             }
         }
     }

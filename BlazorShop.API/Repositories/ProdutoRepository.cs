@@ -36,5 +36,11 @@ namespace BlazorShop.API.Repositories
                                       .Where(x => x.CategoriaId == id).ToListAsync();
             return produtoPorCategoria;
         }
+
+        public async Task<IEnumerable<Categoria>> GetCategorias()
+        {
+            var categorias = await _context.Categorias.ToListAsync();
+            return categorias;
+        }
     }
 }
