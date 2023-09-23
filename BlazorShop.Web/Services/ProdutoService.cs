@@ -30,5 +30,34 @@ namespace BlazorShop.Web.Services
                 throw; 
             }
         }
+
+        public async Task<ProdutoDTO> GetItem(int id)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"api/produtos/{id}");
+
+                if (response.IsSuccessStatusCode) //Status code 200-299
+                {
+                    if (response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        return default(ProdutoDTO); //retorna os valores padrão/empty
+                    }
+                    return await response.Content.ReadFromJsonAsync<ProdutoDTO>();
+                }
+                else
+                {
+                    var message = await response.Content.ReadAsStringAsync();
+                    _logger.LogError($"Erro ao obter produto pelo id = {id} - {message}");
+                    throw new Exception($"Status Code: {response.StatusCode} - {message}");
+                }
+            }
+            catch (Exception)
+            {
+                _logger.LogError($"Erro ao obter produto pelo id = {id}");
+                throw;
+            }
+            
+        }        
     }
 }
