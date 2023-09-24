@@ -42,6 +42,8 @@ else
     public IProdutoService? ProdutoService { get; set; }
     [Inject]
     public ICarrinhoCompraService? CarrinhoCompraService { get; set; }
+    [Inject]
+    public NavigationManager? NavigationManager { get; set; }
 
     [Parameter]
     public int Id { get; set; }
@@ -67,6 +69,7 @@ else
         try
         {
             var carrinhoItemDto = await CarrinhoCompraService.AdicionaItem(carrinhoItemAdicionaDTO);
+            NavigationManager.NavigateTo("/CarrinhoCompra");
         }
         catch (Exception)
         {
