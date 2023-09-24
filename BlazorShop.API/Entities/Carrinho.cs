@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public int UsuarioId { get; set; }
+        public string UsuarioId { get; set; } = string.Empty;
 
         public ICollection<CarrinhoItem> Itens { get; set; } = new List<CarrinhoItem>();
     }
