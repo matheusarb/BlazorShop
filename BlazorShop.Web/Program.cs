@@ -13,5 +13,6 @@ builder.Services.AddScoped(sp => new HttpClient {
 });
 
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<ICarrinhoCompraService, CarrinhoCompraService>();
 
 await builder.Build().RunAsync();
