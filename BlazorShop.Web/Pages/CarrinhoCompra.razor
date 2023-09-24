@@ -31,7 +31,9 @@ else
                             </div>
                             <span>Preço: <b>@item.Preco.ToString("C")</b></span>
                             <div>
-                                <button class="btn btn-danger sm">Excluir</button>
+                                <button @onclick="(() => DeletaCarrinhoItem_Click(item.Id))" class="btn btn-danger sm">
+                                    <span class="oi oi-trash"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -57,7 +59,6 @@ else
         </div>
     }
 }
-<h3>CarrinhoCompra</h3>
 
 @code {
     [Inject]
@@ -79,7 +80,7 @@ else
         }
     }
 
-    protected async Task DeletaCarrinhoItem(int id)
+    protected async Task DeletaCarrinhoItem_Click(int id)
     {
         // excluir o item do banco de dados
         var carrinhoItemDto = await CarrinhoCompraService.DeletaItem(id);
